@@ -1,0 +1,131 @@
+# Build the STAC catalog of ECMWF open data and publish it on GitHub Pages.
+#
+# Controls:
+#  - Triggers: schedule and manual dispatch only. No pull_request, pull_request_target,
+#    issue or comment triggers, so nobody outside the repository can start it.
+#    Manual runs need write access to the repository.
+#  - Permissions: read-only by default; only the deploy job can write to Pages.
+#  - Deploys go through the github-pages environment, restricted to the main branch.
+#  - Actions are pinned to full commit SHAs (release tag in the comment).
+#  - One run at a time (concurrency group), never cancelling a deploy in progress.
+#  - Hourly check, but the catalog is only rebuilt when the runs online at ECMWF
+#    (or this repository's code) have changed since the last deploy.
+
+name: Build and publish STAC catalog
+
+on:
+  schedule:
+    - cron: "23 * * * *"   # hourly at :23; most runs stop after the ~1-minute change check
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Rebuild and deploy even if nothing has changed"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  STAC_BROWSER_VERSION: v5.1.0
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    outputs:
+      changed: ${{ steps.check.outputs.changed }}
+    env:
+      SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Check for new or changed runs
+        id: check
+        env:
+          FORCE: ${{ inputs.force }}
+        run: |
+          python build_catalog.py --list-runs > build-state.txt
+          echo "commit $GITHUB_SHA" >> build-state.txt
+          echo "browser $STAC_BROWSER_VERSION" >> build-state.txt
+          cat build-state.txt
+          curl -fsS "$SITE_URL/build-state.txt" -o deployed-state.txt || : > deployed-state.txt
+          if [ "$FORCE" = "true" ] || ! cmp -s build-state.txt deployed-state.txt; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "Changes found: rebuilding"
+            diff deployed-state.txt build-state.txt || true
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No changes since the last deploy: skipping the build"
+          fi
+
+      # The parameter/grid cache is committed as a seed; this keeps anything
+      # learned since (new parameters) between runs.
+      - name: Restore GRIB metadata cache
+        if: steps.check.outputs.changed == 'true'
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .cache
+          key: grib-metadata-${{ github.run_id }}
+          restore-keys: grib-metadata-
+
+      - name: Build STAC catalog
+        if: steps.check.outputs.changed == 'true'
+        run: python build_catalog.py --base-url "$SITE_URL"
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        if: steps.check.outputs.changed == 'true'
+        with:
+          node-version: "22"
+
+      - name: Cache npm downloads
+        if: steps.check.outputs.changed == 'true'
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.npm
+          key: npm-stac-browser-${{ env.STAC_BROWSER_VERSION }}
+
+      - name: Build STAC Browser
+        if: steps.check.outputs.changed == 'true'
+        run: ./setup_browser.sh
+
+      - name: Record build state
+        if: steps.check.outputs.changed == 'true'
+        run: cp build-state.txt site/build-state.txt
+
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        if: steps.check.outputs.changed == 'true'
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    if: needs.build.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

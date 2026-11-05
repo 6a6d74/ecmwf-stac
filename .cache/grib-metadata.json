@@ -1,0 +1,1649 @@
+{
+ "pl/pl/d": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "divergence_of_wind",
+   "level": 50,
+   "name": "Divergence",
+   "paramId": 155,
+   "shortName": "d",
+   "stepRange": "0",
+   "stepType": "instant",
+   "typeOfLevel": "isobaricInhPa",
+   "units": "s**-1"
+  }
+ },
+ "pl/pl/gh": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "geopotential_height",
+   "level": 50,
+   "name": "Geopotential height",
+   "paramId": 156,
+   "shortName": "gh",
+   "stepRange": "0",
+   "stepType": "instant",
+   "typeOfLevel": "isobaricInhPa",
+   "units": "gpm"
+  }
+ },
+ "pl/pl/q": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "specific_humidity",
+   "level": 10,
+   "name": "Specific humidity",
+   "paramId": 133,
+   "shortName": "q",
+   "stepRange": "6",
+   "stepType": "instant",
+   "typeOfLevel": "isobaricInhPa",
+   "units": "kg kg**-1"
+  }
+ },
+ "pl/pl/r": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "relative_humidity",
+   "level": 10,
+   "name": "Relative humidity",
+   "paramId": 157,
+   "shortName": "r",
+   "stepRange": "6",
+   "stepType": "instant",
+   "typeOfLevel": "isobaricInhPa",
+   "units": "%"
+  }
+ },
+ "pl/pl/t": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "air_temperature",
+   "level": 600,
+   "name": "Temperature",
+   "paramId": 130,
+   "shortName": "t",
+   "stepRange": "0",
+   "stepType": "instant",
+   "typeOfLevel": "isobaricInhPa",
+   "units": "K"
+  }
+ },
+ "pl/pl/u": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "eastward_wind",
+   "level": 250,
+   "name": "U component of wind",
+   "paramId": 131,
+   "shortName": "u",
+   "stepRange": "0",
+   "stepType": "instant",
+   "typeOfLevel": "isobaricInhPa",
+   "units": "m s**-1"
+  }
+ },
+ "pl/pl/v": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "northward_wind",
+   "level": 50,
+   "name": "V component of wind",
+   "paramId": 132,
+   "shortName": "v",
+   "stepRange": "0",
+   "stepType": "instant",
+   "typeOfLevel": "isobaricInhPa",
+   "units": "m s**-1"
+  }
+ },
+ "pl/pl/vo": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "atmosphere_relative_vorticity",
+   "level": 50,
+   "name": "Vorticity (relative)",
+   "paramId": 138,
+   "shortName": "vo",
+   "stepRange": "0",
+   "stepType": "instant",
+   "typeOfLevel": "isobaricInhPa",
+   "units": "s**-1"
+  }
+ },
+ "pl/pl/w": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "lagrangian_tendency_of_air_pressure",
+   "level": 250,
+   "name": "Vertical velocity",
+   "paramId": 135,
+   "shortName": "w",
+   "stepRange": "0",
+   "stepType": "instant",
+   "typeOfLevel": "isobaricInhPa",
+   "units": "Pa s**-1"
+  }
+ },
+ "pl/pl/z": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "geopotential",
+   "level": 50,
+   "name": "Geopotential",
+   "paramId": 129,
+   "shortName": "z",
+   "stepRange": "0",
+   "stepType": "instant",
+   "typeOfLevel": "isobaricInhPa",
+   "units": "m**2 s**-2"
+  }
+ },
+ "sfc/sfc/100u": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "eastward_wind",
+   "level": 100,
+   "name": "100 metre U wind component",
+   "paramId": 228246,
+   "shortName": "100u",
+   "stepRange": "0",
+   "stepType": "instant",
+   "typeOfLevel": "heightAboveGround",
+   "units": "m s**-1"
+  }
+ },
+ "sfc/sfc/100v": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "northward_wind",
+   "level": 100,
+   "name": "100 metre V wind component",
+   "paramId": 228247,
+   "shortName": "100v",
+   "stepRange": "0",
+   "stepType": "instant",
+   "typeOfLevel": "heightAboveGround",
+   "units": "m s**-1"
+  }
+ },
+ "sfc/sfc/10fg": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "unknown",
+   "level": 10,
+   "name": "Maximum 10 metre wind gust since previous post-processing",
+   "paramId": 49,
+   "shortName": "10fg",
+   "stepRange": "0",
+   "stepType": "max",
+   "typeOfLevel": "heightAboveGround",
+   "units": "m s**-1"
+  }
+ },
+ "sfc/sfc/10fg3": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "unknown",
+   "level": 10,
+   "name": "Maximum 10 metre wind gust in the last 3 hours",
+   "paramId": 228028,
+   "shortName": "10fg3",
+   "stepRange": "132-135",
+   "stepType": "max",
+   "typeOfLevel": "heightAboveGround",
+   "units": "m s**-1"
+  }
+ },
+ "sfc/sfc/10u": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "eastward_wind",
+   "level": 10,
+   "name": "10 metre U wind component",
+   "paramId": 165,
+   "shortName": "10u",
+   "stepRange": "0",
+   "stepType": "instant",
+   "typeOfLevel": "heightAboveGround",
+   "units": "m s**-1"
+  }
+ },
+ "sfc/sfc/10v": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "northward_wind",
+   "level": 10,
+   "name": "10 metre V wind component",
+   "paramId": 166,
+   "shortName": "10v",
+   "stepRange": "0",
+   "stepType": "instant",
+   "typeOfLevel": "heightAboveGround",
+   "units": "m s**-1"
+  }
+ },
+ "sfc/sfc/2d": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "unknown",
+   "level": 2,
+   "name": "2 metre dewpoint temperature",
+   "paramId": 168,
+   "shortName": "2d",
+   "stepRange": "6",
+   "stepType": "instant",
+   "typeOfLevel": "heightAboveGround",
+   "units": "K"
+  }
+ },
+ "sfc/sfc/2t": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "air_temperature",
+   "level": 2,
+   "name": "2 metre temperature",
+   "paramId": 167,
+   "shortName": "2t",
+   "stepRange": "6",
+   "stepType": "instant",
+   "typeOfLevel": "heightAboveGround",
+   "units": "K"
+  }
+ },
+ "sfc/sfc/asn": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "unknown",
+   "level": 0,
+   "name": "Snow albedo",
+   "paramId": 32,
+   "shortName": "asn",
+   "stepRange": "6",
+   "stepType": "instant",
+   "typeOfLevel": "surface",
+   "units": "(0 - 1)"
+  }
+ },
+ "sfc/sfc/cp": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "lwe_thickness_of_convective_precipitation_amount",
+   "level": 0,
+   "name": "Convective precipitation",
+   "paramId": 143,
+   "shortName": "cp",
+   "stepRange": "0",
+   "stepType": "accum",
+   "typeOfLevel": "surface",
+   "units": "m"
+  }
+ },
+ "sfc/sfc/ewss": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "surface_downward_eastward_stress",
+   "level": 0,
+   "name": "Time-integrated eastward turbulent surface stress",
+   "paramId": 180,
+   "shortName": "ewss",
+   "stepRange": "0",
+   "stepType": "accum",
+   "typeOfLevel": "surface",
+   "units": "N m**-2 s"
+  }
+ },
+ "sfc/sfc/hcc": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "unknown",
+   "level": 0,
+   "name": "High cloud cover",
+   "paramId": 188,
+   "shortName": "hcc",
+   "stepRange": "0",
+   "stepType": "instant",
+   "typeOfLevel": "surface",
+   "units": "(0 - 1)"
+  }
+ },
+ "sfc/sfc/lcc": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "unknown",
+   "level": 0,
+   "name": "Low cloud cover",
+   "paramId": 186,
+   "shortName": "lcc",
+   "stepRange": "0",
+   "stepType": "instant",
+   "typeOfLevel": "surface",
+   "units": "(0 - 1)"
+  }
+ },
+ "sfc/sfc/lsm": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "land_binary_mask",
+   "level": 0,
+   "name": "Land-sea mask",
+   "paramId": 172,
+   "shortName": "lsm",
+   "stepRange": "0",
+   "stepType": "instant",
+   "typeOfLevel": "surface",
+   "units": "(0 - 1)"
+  }
+ },
+ "sfc/sfc/mcc": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "unknown",
+   "level": 0,
+   "name": "Medium cloud cover",
+   "paramId": 187,
+   "shortName": "mcc",
+   "stepRange": "0",
+   "stepType": "instant",
+   "typeOfLevel": "surface",
+   "units": "(0 - 1)"
+  }
+ },
+ "sfc/sfc/mn2t3": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "air_temperature",
+   "level": 2,
+   "name": "Minimum temperature at 2 metres in the last 3 hours",
+   "paramId": 228027,
+   "shortName": "mn2t3",
+   "stepRange": "0-3",
+   "stepType": "min",
+   "typeOfLevel": "heightAboveGround",
+   "units": "K"
+  }
+ },
+ "sfc/sfc/mn2t6": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "air_temperature",
+   "level": 2,
+   "name": "Minimum temperature at 2 metres in the last 6 hours",
+   "paramId": 122,
+   "shortName": "mn2t6",
+   "stepRange": "216-222",
+   "stepType": "min",
+   "typeOfLevel": "heightAboveGround",
+   "units": "K"
+  }
+ },
+ "sfc/sfc/msl": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "air_pressure_at_mean_sea_level",
+   "level": 0,
+   "name": "Mean sea level pressure",
+   "paramId": 151,
+   "shortName": "msl",
+   "stepRange": "0",
+   "stepType": "instant",
+   "typeOfLevel": "meanSea",
+   "units": "Pa"
+  }
+ },
+ "sfc/sfc/mucape": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "unknown",
+   "level": 0,
+   "name": "Most-unstable CAPE",
+   "paramId": 228235,
+   "shortName": "mucape",
+   "stepRange": "0",
+   "stepType": "instant",
+   "typeOfLevel": "mostUnstableParcel",
+   "units": "J kg**-1"
+  }
+ },
+ "sfc/sfc/mx2t3": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "air_temperature",
+   "level": 2,
+   "name": "Maximum temperature at 2 metres in the last 3 hours",
+   "paramId": 228026,
+   "shortName": "mx2t3",
+   "stepRange": "0-3",
+   "stepType": "max",
+   "typeOfLevel": "heightAboveGround",
+   "units": "K"
+  }
+ },
+ "sfc/sfc/mx2t6": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "air_temperature",
+   "level": 2,
+   "name": "Maximum temperature at 2 metres in the last 6 hours",
+   "paramId": 121,
+   "shortName": "mx2t6",
+   "stepRange": "192-198",
+   "stepType": "max",
+   "typeOfLevel": "heightAboveGround",
+   "units": "K"
+  }
+ },
+ "sfc/sfc/nsss": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "surface_downward_northward_stress",
+   "level": 0,
+   "name": "Time-integrated northward turbulent surface stress",
+   "paramId": 181,
+   "shortName": "nsss",
+   "stepRange": "0",
+   "stepType": "accum",
+   "typeOfLevel": "surface",
+   "units": "N m**-2 s"
+  }
+ },
+ "sfc/sfc/ptype": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "unknown",
+   "level": 0,
+   "name": "Precipitation type",
+   "paramId": 260015,
+   "shortName": "ptype",
+   "stepRange": "0",
+   "stepType": "instant",
+   "typeOfLevel": "surface",
+   "units": "(Code table 4.201)"
+  }
+ },
+ "sfc/sfc/ro": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "unknown",
+   "level": 0,
+   "name": "Runoff",
+   "paramId": 205,
+   "shortName": "ro",
+   "stepRange": "0",
+   "stepType": "accum",
+   "typeOfLevel": "surface",
+   "units": "m"
+  }
+ },
+ "sfc/sfc/rsn": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "unknown",
+   "level": 0,
+   "name": "Snow density",
+   "paramId": 33,
+   "shortName": "rsn",
+   "stepRange": "0",
+   "stepType": "instant",
+   "typeOfLevel": "surface",
+   "units": "kg m**-3"
+  }
+ },
+ "sfc/sfc/sd": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "lwe_thickness_of_surface_snow_amount",
+   "level": 0,
+   "name": "Snow depth",
+   "paramId": 141,
+   "shortName": "sd",
+   "stepRange": "6",
+   "stepType": "instant",
+   "typeOfLevel": "surface",
+   "units": "m of water equivalent"
+  }
+ },
+ "sfc/sfc/sdor": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "unknown",
+   "level": 0,
+   "name": "Standard deviation of sub-gridscale orography",
+   "paramId": 160,
+   "shortName": "sdor",
+   "stepRange": "0",
+   "stepType": "instant",
+   "typeOfLevel": "surface",
+   "units": "m"
+  }
+ },
+ "sfc/sfc/sf": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "lwe_thickness_of_snowfall_amount",
+   "level": 0,
+   "name": "Snowfall",
+   "paramId": 144,
+   "shortName": "sf",
+   "stepRange": "0",
+   "stepType": "accum",
+   "typeOfLevel": "surface",
+   "units": "m of water equivalent"
+  }
+ },
+ "sfc/sfc/sithick": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "unknown",
+   "level": 0,
+   "name": "Sea ice thickness",
+   "paramId": 262000,
+   "shortName": "sithick",
+   "stepRange": "12",
+   "stepType": "instant",
+   "typeOfLevel": "surface",
+   "units": "m"
+  }
+ },
+ "sfc/sfc/skt": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "unknown",
+   "level": 0,
+   "name": "Skin temperature",
+   "paramId": 235,
+   "shortName": "skt",
+   "stepRange": "0",
+   "stepType": "instant",
+   "typeOfLevel": "surface",
+   "units": "K"
+  }
+ },
+ "sfc/sfc/slor": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "unknown",
+   "level": 0,
+   "name": "Slope of sub-gridscale orography",
+   "paramId": 163,
+   "shortName": "slor",
+   "stepRange": "0",
+   "stepType": "instant",
+   "typeOfLevel": "surface",
+   "units": "Numeric"
+  }
+ },
+ "sfc/sfc/sp": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "surface_air_pressure",
+   "level": 0,
+   "name": "Surface pressure",
+   "paramId": 134,
+   "shortName": "sp",
+   "stepRange": "0",
+   "stepType": "instant",
+   "typeOfLevel": "surface",
+   "units": "Pa"
+  }
+ },
+ "sfc/sfc/ssr": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "surface_net_downward_shortwave_flux",
+   "level": 0,
+   "name": "Surface net short-wave (solar) radiation",
+   "paramId": 176,
+   "shortName": "ssr",
+   "stepRange": "0",
+   "stepType": "accum",
+   "typeOfLevel": "surface",
+   "units": "J m**-2"
+  }
+ },
+ "sfc/sfc/ssrd": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "surface_downwelling_shortwave_flux_in_air",
+   "level": 0,
+   "name": "Surface short-wave (solar) radiation downwards",
+   "paramId": 169,
+   "shortName": "ssrd",
+   "stepRange": "0",
+   "stepType": "accum",
+   "typeOfLevel": "surface",
+   "units": "J m**-2"
+  }
+ },
+ "sfc/sfc/str": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "surface_net_upward_longwave_flux",
+   "level": 0,
+   "name": "Surface net long-wave (thermal) radiation",
+   "paramId": 177,
+   "shortName": "str",
+   "stepRange": "0",
+   "stepType": "accum",
+   "typeOfLevel": "surface",
+   "units": "J m**-2"
+  }
+ },
+ "sfc/sfc/strd": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "unknown",
+   "level": 0,
+   "name": "Surface long-wave (thermal) radiation downwards",
+   "paramId": 175,
+   "shortName": "strd",
+   "stepRange": "0",
+   "stepType": "accum",
+   "typeOfLevel": "surface",
+   "units": "J m**-2"
+  }
+ },
+ "sfc/sfc/sve": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "unknown",
+   "level": 0,
+   "name": "Eastward surface sea water velocity",
+   "paramId": 262140,
+   "shortName": "sve",
+   "stepRange": "12",
+   "stepType": "instant",
+   "typeOfLevel": "surface",
+   "units": "m s**-1"
+  }
+ },
+ "sfc/sfc/svn": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "unknown",
+   "level": 0,
+   "name": "Northward surface sea water velocity",
+   "paramId": 262139,
+   "shortName": "svn",
+   "stepRange": "0",
+   "stepType": "instant",
+   "typeOfLevel": "surface",
+   "units": "m s**-1"
+  }
+ },
+ "sfc/sfc/tcc": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "cloud_area_fraction",
+   "level": 0,
+   "name": "Total cloud cover",
+   "paramId": 164,
+   "shortName": "tcc",
+   "stepRange": "0",
+   "stepType": "instant",
+   "typeOfLevel": "entireAtmosphere",
+   "units": "(0 - 1)"
+  }
+ },
+ "sfc/sfc/tciw": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "unknown",
+   "level": 0,
+   "name": "Total column cloud ice water",
+   "paramId": 79,
+   "shortName": "tciw",
+   "stepRange": "0",
+   "stepType": "instant",
+   "typeOfLevel": "entireAtmosphere",
+   "units": "kg m**-2"
+  }
+ },
+ "sfc/sfc/tclw": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "unknown",
+   "level": 0,
+   "name": "Total column cloud liquid water",
+   "paramId": 78,
+   "shortName": "tclw",
+   "stepRange": "6",
+   "stepType": "instant",
+   "typeOfLevel": "entireAtmosphere",
+   "units": "kg m**-2"
+  }
+ },
+ "sfc/sfc/tcrw": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "unknown",
+   "level": 0,
+   "name": "Total column rain water",
+   "paramId": 228089,
+   "shortName": "tcrw",
+   "stepRange": "12",
+   "stepType": "instant",
+   "typeOfLevel": "entireAtmosphere",
+   "units": "kg m**-2"
+  }
+ },
+ "sfc/sfc/tcw": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "unknown",
+   "level": 0,
+   "name": "Total column water",
+   "paramId": 136,
+   "shortName": "tcw",
+   "stepRange": "0",
+   "stepType": "instant",
+   "typeOfLevel": "entireAtmosphere",
+   "units": "kg m**-2"
+  }
+ },
+ "sfc/sfc/tcwv": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "lwe_thickness_of_atmosphere_mass_content_of_water_vapor",
+   "level": 0,
+   "name": "Total column vertically-integrated water vapour",
+   "paramId": 137,
+   "shortName": "tcwv",
+   "stepRange": "0",
+   "stepType": "instant",
+   "typeOfLevel": "entireAtmosphere",
+   "units": "kg m**-2"
+  }
+ },
+ "sfc/sfc/tp": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "unknown",
+   "level": 0,
+   "name": "Total precipitation",
+   "paramId": 228,
+   "shortName": "tp",
+   "stepRange": "0",
+   "stepType": "accum",
+   "typeOfLevel": "surface",
+   "units": "m"
+  }
+ },
+ "sfc/sfc/tprate": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "unknown",
+   "level": 0,
+   "name": "Total precipitation rate",
+   "paramId": 260048,
+   "shortName": "tprate",
+   "stepRange": "12",
+   "stepType": "instant",
+   "typeOfLevel": "surface",
+   "units": "kg m**-2 s**-1"
+  }
+ },
+ "sfc/sfc/ttr": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "toa_outgoing_longwave_flux",
+   "level": 0,
+   "name": "Top net long-wave (thermal) radiation",
+   "paramId": 179,
+   "shortName": "ttr",
+   "stepRange": "0",
+   "stepType": "accum",
+   "typeOfLevel": "nominalTop",
+   "units": "J m**-2"
+  }
+ },
+ "sfc/sfc/z": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "geopotential",
+   "level": 0,
+   "name": "Geopotential",
+   "paramId": 129,
+   "shortName": "z",
+   "stepRange": "0",
+   "stepType": "instant",
+   "typeOfLevel": "surface",
+   "units": "m**2 s**-2"
+  }
+ },
+ "sfc/sfc/zos": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "sea_surface_height_above_geoid",
+   "level": 0,
+   "name": "Sea surface height",
+   "paramId": 262124,
+   "shortName": "zos",
+   "stepRange": "6",
+   "stepType": "instant",
+   "typeOfLevel": "surface",
+   "units": "m"
+  }
+ },
+ "sfc/sol/sot": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "unknown",
+   "level": 4,
+   "name": "Soil temperature",
+   "paramId": 260360,
+   "shortName": "sot",
+   "stepRange": "0",
+   "stepType": "instant",
+   "typeOfLevel": "soilLayer",
+   "units": "K"
+  }
+ },
+ "sfc/sol/vsw": {
+  "grid": {
+   "Ni": 3600,
+   "Nj": 1801,
+   "gridType": "regular_ll",
+   "iDirectionIncrementInDegrees": 0.1,
+   "jDirectionIncrementInDegrees": 0.1,
+   "jScansPositively": 0,
+   "latitudeOfFirstGridPointInDegrees": 90.0,
+   "latitudeOfLastGridPointInDegrees": -90.0,
+   "longitudeOfFirstGridPointInDegrees": 180.0,
+   "longitudeOfLastGridPointInDegrees": 179.9,
+   "radius": 6371229,
+   "shapeOfTheEarth": 6
+  },
+  "param": {
+   "cfName": "unknown",
+   "level": 4,
+   "name": "Volumetric soil moisture",
+   "paramId": 260199,
+   "shortName": "vsw",
+   "stepRange": "12",
+   "stepType": "instant",
+   "typeOfLevel": "soilLayer",
+   "units": "m**3 m**-3"
+  }
+ }
+}

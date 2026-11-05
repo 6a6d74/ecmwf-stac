@@ -1,0 +1,15 @@
+# Local environments and build tools
+.venv/
+.stac-browser-src/
+__pycache__/
+.DS_Store
+
+# Generated output: built by the workflow and deployed to GitHub Pages, never committed
+site/stac/
+site/browser/
+site/build-state.txt
+build-state.txt
+deployed-state.txt
+
+# .cache/grib-metadata.json IS committed: it seeds the parameter/grid metadata
+# so the workflow does not re-download ~110 MB of GRIB messages.
