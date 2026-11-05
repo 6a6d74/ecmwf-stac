@@ -15,6 +15,11 @@ licensed [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/) under the
 [ECMWF Terms of Use](https://apps.ecmwf.int/datasets/licences/general/), © ECMWF,
 DOI [10.21957/open-data](https://doi.org/10.21957/open-data).
 
+The catalog is browsed with [STAC Browser](https://github.com/radiantearth/stac-browser)
+by the Radiant Earth Foundation and moreGeo GmbH, used unmodified under the
+ISC licence. `setup_browser.sh` builds it from the upstream release and ships
+its licence with the build as `browser/LICENSE.txt`.
+
 ## Quick start
 
 ```

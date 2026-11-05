@@ -40,4 +40,7 @@ SB_allowExternalAccess="false" \
 
 rm -rf "$HERE/site/browser"
 cp -R "$SRC/dist" "$HERE/site/browser"
+# STAC Browser is ISC-licensed: its copyright and permission notice must
+# accompany every copy, so ship the licence with the build.
+cp "$SRC/LICENSE" "$HERE/site/browser/LICENSE.txt"
 echo "STAC Browser $VERSION built into site/browser/ for ${SITE_URL}/browser/"
