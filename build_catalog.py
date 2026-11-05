@@ -102,7 +102,7 @@ fields (sfc), each holding the run's GRIB2 file and index file for every
 forecast step as assets. Each Item describes its horizontal grid with the
 Projection extension and its contents (variables, levels, valid times) with
 the Datacube extension; the Forecast extension gives the run's reference time,
-and each asset its valid time and forecast horizon.
+and each asset its valid time (datetime) and step (ecmwf:step).
 
 Licence: [CC-BY-4.0]({CC_BY}), subject to the [ECMWF Terms of Use]({ECMWF_TERMS}).
 Data © ECMWF. DOI: [10.21957/open-data]({DOI}).
@@ -440,7 +440,7 @@ def make_collection(cid, title, description, items, fields, local_ext):
 
     `fields` are properties shared by all those Items; they are set as
     top-level Collection fields and also appear in `summaries`. Forecast steps
-    are not summarised: they are assets (with datetime and forecast:horizon)
+    are not summarised: they are assets (with datetime and ecmwf:step)
     of each Item, and the Collection's temporal extent covers their valid times.
     """
     starts = [it.common_metadata.start_datetime for it in items]
@@ -577,7 +577,7 @@ def make_run_item(d, hh, lt, ref, files, cache, common, local_ext):
                         f"parameters at {len(steps)} forecast steps from +{steps[0]}h to "
                         f"+{steps[-1]}h, reference time {iso(ref)}. Each step has a GRIB2 "
                         f"asset (PT<step>H) and its index (PT<step>H-index); both carry the "
-                        f"step's valid time (datetime) and forecast:horizon. "
+                        f"step's valid time (datetime) and step (ecmwf:step). "
                         f"{INDEX_ASSET_DESCRIPTION} Single fields can be downloaded with HTTP "
                         f"range requests using those byte ranges."),
         "start_datetime": times[0],
@@ -609,7 +609,7 @@ def make_run_item(d, hh, lt, ref, files, cache, common, local_ext):
     for folder, name, m, rows in files:
         step = int(m["step"])
         horizon = f"PT{step}H"
-        per_step = {"datetime": iso(valid[step]), "forecast:horizon": horizon}
+        per_step = {"datetime": iso(valid[step]), "ecmwf:step": f"{step}h"}
         item.add_asset(horizon, pystac.Asset(
             href=f"{folder}/{name}", media_type=GRIB2_MEDIA_TYPE, roles=["data"],
             title=f"{horizon} step of the {run_label}",

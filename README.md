@@ -146,7 +146,7 @@ including the credit to the Planetary Computer collection.
 
 ### Assets
 
-Two assets per forecast step, keyed by the step's forecast horizon:
+Two assets per forecast step, keyed by the step as an ISO 8601 duration:
 
 | Key | Title | Type | Roles |
 |---|---|---|---|
@@ -154,7 +154,7 @@ Two assets per forecast step, keyed by the step's forecast horizon:
 | `PT3H-index` | Index for PT3H step of the IFS 0.1° oper run 2026-11-04 12 UTC | `application/x-ndjson` | `["index"]` |
 
 Both carry the step's valid time as `datetime` (e.g. `2026-11-04T15:00:00Z`)
-and `forecast:horizon` (`PT3H`). Asset keys are short identifiers for use in
+and the step as `ecmwf:step` (`3h`, as in the Planetary Computer items). Asset keys are short identifiers for use in
 code (`item.assets["PT3H"]`); the title is what STAC Browser shows.
 
 **Variables present at only some steps** say so in their `comment`, because a
