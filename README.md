@@ -1,9 +1,13 @@
 # ecmwf-stac: STAC catalog for ECMWF open data (metdx demo)
 
+**Browse:** <https://6a6d74.github.io/ecmwf-stac/browser/>  
+**Catalog:** <https://6a6d74.github.io/ecmwf-stac/stac/collection.json>
+
 Generates a static [STAC](https://stacspec.org) catalog, built from STAC
-Collections, describing the GRIB2
-files of the ECMWF open-data **IFS 0.1° `oper`** forecasts, serves it on this
-machine only, and lets you browse it with STAC Browser.
+Collections, describing the GRIB2 files of the ECMWF open-data
+**IFS 0.1° `oper`** forecasts, and lets you browse it with STAC Browser. It is
+published on GitHub Pages and rebuilt hourly when ECMWF's runs change, and can
+also be served locally.
 
 The [ECMWF open data collection in the Microsoft Planetary Computer STAC
 catalogue](https://planetarycomputer.microsoft.com/api/stac/v1/collections/ecmwf-forecast)
