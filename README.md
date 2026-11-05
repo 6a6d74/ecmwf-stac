@@ -111,7 +111,9 @@ Every Collection has:
 - `summaries` of the Item properties below it: `ecmwf:stream`, `ecmwf:type`,
   `ecmwf:resolution`, `metdx-demo:model`, `forecast:perturbed`,
   `metdx-demo:levtype`, `ecmwf:step`, `forecast:horizon` and
-  `forecast:reference_datetime`
+  `forecast:reference_datetime`. `ecmwf:step` and `forecast:horizon` are
+  ranges (`{"minimum": "0h", "maximum": "360h"}`) on the root and date
+  Collections and full lists in numeric order on run Collections.
 - the properties shared by all Items below it, also as top-level fields:
   `ecmwf:stream`, `ecmwf:type`, `ecmwf:resolution`, `metdx-demo:model` and
   `forecast:perturbed` on every Collection; `metdx-demo:reference_date` on
@@ -171,6 +173,11 @@ including the credit to the Planetary Computer collection.
   sends them as `application/json`, but they aren't a single JSON document;
   `application/json-seq` (RFC 7464) would need an RS character before each
   record.
+- **STAC Browser display quirks:** it re-sorts summary lists as text and
+  numbers them, so a run Collection's steps show as `1. 0h`, `2. 102h`,
+  `3. 105h`, … (the JSON is in numeric order). It also shows zero durations
+  (`PT0H`, `PT0S`) as "none", so step-0 horizons read "none". Both come from
+  `@radiantearth/stac-fields`; the JSON is correct.
 - **Units** are written UDUNITS-style (`m s**-1` → `m s-1`); `(0 - 1)` and
   `Numeric` become `1`.
 

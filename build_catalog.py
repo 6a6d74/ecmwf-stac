@@ -378,7 +378,7 @@ def main():
     root = make_collection(
         f"ecmwf-opendata-{MODEL}-{RESOL}-{STREAM}",
         f"ECMWF open data: IFS 0.1° {STREAM} ({STREAM_TITLE})",
-        ROOT_DESCRIPTION, all_items, common, local_ext)
+        ROOT_DESCRIPTION, all_items, common, local_ext, step_summary="range")
     add_reference_links(root)
     hrefs = [(root, out / "collection.json")]
     for d in sorted({d for d, _ in runs}):
@@ -389,7 +389,7 @@ def main():
             (f"IFS 0.1° {STREAM} forecast runs whose reference (base) date is {day}, "
              f"one collection per reference time (00/06/12/18 UTC)."),
             [it for _, (_, items) in day_runs for it in items],
-            {**common, "metdx-demo:reference_date": day}, local_ext)
+            {**common, "metdx-demo:reference_date": day}, local_ext, step_summary="range")
         add_license_links(date_col)
         root.add_child(date_col)
         hrefs.append((date_col, out / d / "collection.json"))
@@ -402,7 +402,7 @@ def main():
                 items,
                 {**common, "metdx-demo:reference_date": day,
                  "ecmwf:reference_datetime": iso(ref), "forecast:reference_datetime": iso(ref)},
-                local_ext)
+                local_ext, step_summary="list")
             add_license_links(run_col)
             date_col.add_child(run_col)
             hrefs.append((run_col, out / d / f"{hh}z" / "collection.json"))
@@ -423,19 +423,31 @@ def main():
     print(f"Wrote {len(all_items)} Items in {len(runs)} run(s) to {out}/collection.json")
 
 
-def make_collection(cid, title, description, items, fields, local_ext):
+def make_collection(cid, title, description, items, fields, local_ext, step_summary="list"):
     """A Collection whose extent and summaries come from the Items below it.
 
     `fields` are properties shared by all those Items; they are set as
     top-level Collection fields and also appear in `summaries`.
+
+    step_summary: how `ecmwf:step` and `forecast:horizon` are summarised:
+      "list"  every step, in numeric order (run Collections), or
+      "range" {"minimum", "maximum"} (root and date Collections). STAC Browser
+              re-sorts summary lists as text (0h, 102h, 105h, ... 3h), so a range
+              reads better where the full list isn't needed.
     """
     times = [it.datetime for it in items]
     steps = sorted({it.properties["ecmwf:step"] for it in items}, key=lambda s: int(s[:-1]))
+    horizons = [f"PT{s[:-1]}H" for s in steps]
+    if step_summary == "range":
+        step_values = {"minimum": steps[0], "maximum": steps[-1]}
+        horizon_values = {"minimum": horizons[0], "maximum": horizons[-1]}
+    else:
+        step_values, horizon_values = steps, horizons
     summaries = {k: [v] for k, v in fields.items() if k != "metdx-demo:reference_date"}
     summaries.update({
         "metdx-demo:levtype": sorted({it.properties["metdx-demo:levtype"] for it in items}),
-        "ecmwf:step": steps,
-        "forecast:horizon": [f"PT{s[:-1]}H" for s in steps],
+        "ecmwf:step": step_values,
+        "forecast:horizon": horizon_values,
         "forecast:reference_datetime": sorted({it.properties["forecast:reference_datetime"]
                                                for it in items}),
     })
