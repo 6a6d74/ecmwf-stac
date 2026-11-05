@@ -53,7 +53,7 @@ build_catalog.py [--date YYYYMMDD ...] [--run HH ...] [--steps H ...] [--levtype
 |---|---|---|
 | `--date` | all dates online | Only these reference dates |
 | `--run` | all runs online | Only these runs, e.g. `00 12` |
-| `--steps` | all steps | Only these forecast steps, in hours |
+| `--steps` | all steps | Only these forecast steps, in hours (fewer assets per Item) |
 | `--levtype` | both | Only `pl` (pressure levels) or `sfc` (surface) files |
 | `--root` | `https://data.ecmwf.int/ecpds/home/opendata` | Open-data root; asset links point here |
 | `--out` | `site/stac` | Output folder; replaced on every run (root is `collection.json`) |
@@ -64,8 +64,8 @@ build_catalog.py [--date YYYYMMDD ...] [--run HH ...] [--steps H ...] [--levtype
 Examples:
 
 ```
-.venv/bin/python build_catalog.py --date 20261104 --run 00 --steps 0 6 12   # 6 Items
-.venv/bin/python build_catalog.py --date 20261104 --run 00                   # a whole run (170 Items)
+.venv/bin/python build_catalog.py --date 20261104 --run 00 --steps 0 6 12   # 2 Items, 3 steps each
+.venv/bin/python build_catalog.py --date 20261104 --run 00                   # 2 Items, 85 steps each
 .venv/bin/python build_catalog.py                                            # everything online
 ```
 
@@ -78,7 +78,7 @@ catalog. It rebuilds the whole catalog each time.
    and selects `*-[step]h-oper-fc-[pl|sfc].grib2`.
 2. **Contents:** for each GRIB2 file, reads the small `.index` file ECMWF
    publishes next to it (one JSON line per GRIB message: param, level, byte
-   range). Each index file is also added to its Item as an `index` asset.
+   range). Each index file is also an asset of its run's Item (`PT<step>H-index`).
 3. **Names, units and grid:** for each parameter not yet in the cache, the
    smallest single message is downloaded by HTTP byte range and decoded with
    ecCodes. That's about 90 MB the first time and nothing afterwards. It reads
@@ -94,11 +94,18 @@ catalog. It rebuilds the whole catalog each time.
 ```
 site/stac/collection.json                             root Collection: IFS 0.1° oper
 └── 20261104/collection.json                          Level 0 Collection: reference date
-    └── 00z/collection.json                           Level 1 Collection: reference time (run)
-        ├── 20261104000000-0h-oper-fc-pl.json         Level 2: one Item per GRIB2 file
-        └── 20261104000000-0h-oper-fc-sfc.json
+    └── 12z/collection.json                           Level 1 Collection: reference time (run)
+        ├── 20261104120000-oper-fc-pl.json            Item: pressure levels, every step of the run
+        └── 20261104120000-oper-fc-sfc.json           Item: surface fields, every step of the run
 site/stac/extensions/metdx-demo/v0.1.0/schema.json    local extension schema
 ```
+
+Each run is described by **two Items, one per vertical domain**: pressure
+levels (`pl`) and surface fields (`sfc`). They are kept apart because their
+vertical dimensions differ. Each Item holds, for every forecast step of the
+run, the GRIB2 file and its index file as assets. So an Item is a Datacube
+of time × (level) × latitude × longitude, whose time slices are separate
+GRIB2 files.
 
 A root Collection sits above Level 0 so that several dates can be browsed
 from one entry point. Each Item belongs to (`collection`) its run Collection.
@@ -107,13 +114,10 @@ Every Collection has:
 
 - `extent`: the global bbox, and the span of valid times of the Items below it
 - `license` `CC-BY-4.0`, licence links, ECMWF as provider, keywords
-- `item_assets`: what each Item's `data` asset is
 - `summaries` of the Item properties below it: `ecmwf:stream`, `ecmwf:type`,
   `ecmwf:resolution`, `metdx-demo:model`, `forecast:perturbed`,
-  `metdx-demo:levtype`, `ecmwf:step`, `forecast:horizon` and
-  `forecast:reference_datetime`. `ecmwf:step` and `forecast:horizon` are
-  ranges (`{"minimum": "0h", "maximum": "360h"}`) on the root and date
-  Collections and full lists in numeric order on run Collections.
+  `ecmwf:reference_datetime`, `forecast:reference_datetime` and
+  `metdx-demo:levtype`
 - the properties shared by all Items below it, also as top-level fields:
   `ecmwf:stream`, `ecmwf:type`, `ecmwf:resolution`, `metdx-demo:model` and
   `forecast:perturbed` on every Collection; `metdx-demo:reference_date` on
@@ -127,27 +131,51 @@ including the credit to the Planetary Computer collection.
 
 | Field | Example | Source |
 |---|---|---|
-| `id` | `20261104000000-12h-oper-fc-sfc` | file name without `.grib2` |
-| `datetime` | `2026-11-04T12:00:00Z` | valid time = reference time + step |
-| `forecast:reference_datetime` | `2026-11-04T00:00:00Z` | `[yyyymmdd][HH]0000` in the file name |
-| `forecast:horizon` | `PT12H` | `[step][U]` |
+| `id` | `20261104120000-oper-fc-sfc` | file name without the step and `.grib2` |
+| `datetime` | `null` | an Item covers a time range |
+| `start_datetime`, `end_datetime` | `2026-11-04T12:00:00Z`, `2026-11-19T12:00:00Z` | first and last valid times of the run |
+| `forecast:reference_datetime`, `ecmwf:reference_datetime` | `2026-11-04T12:00:00Z` | `[yyyymmdd][HH]0000` in the file names |
 | `forecast:duration` | `PT0S` (pl only) | see notes |
 | `forecast:perturbed` | `false` | `oper` is the control forecast |
-| `ecmwf:reference_datetime`, `ecmwf:forecast_datetime`, `ecmwf:step`, `ecmwf:type`, `ecmwf:stream`, `ecmwf:resolution` | as in the Planetary Computer items | path and file name |
+| `ecmwf:type`, `ecmwf:stream`, `ecmwf:resolution` | `fc`, `oper`, `0.1` | as in the Planetary Computer items |
 | `metdx-demo:model` | `ifs` | `[model]` |
 | `metdx-demo:levtype` | `pl` / `sfc` | `-[levtype]` |
 | `proj:*` | shape, transform, bbox, PROJJSON | grid keys of real GRIB messages |
-| `cube:dimensions` | time, latitude, longitude, pressure_level / soil_layer | index + GRIB |
+| `cube:dimensions` | time (every valid time of the run), latitude, longitude, pressure_level / soil_layer | indexes + GRIB |
 | `cube:variables` | one per GRIB `shortName`, with long_name, unit, standard_name, comment | GRIB |
-| `assets.data` | `type: application/grib;edition=2`, roles `["data"]` | the GRIB2 file on data.ecmwf.int |
-| `assets.index` | `type: application/x-ndjson`, roles `["index"]` | the `.index` file next to it |
+
+### Assets
+
+Two assets per forecast step, keyed by the step's forecast horizon:
+
+| Key | Title | Type | Roles |
+|---|---|---|---|
+| `PT3H` | PT3H step of the IFS 0.1° oper run 2026-11-04 12 UTC | `application/grib;edition=2` | `["data"]` |
+| `PT3H-index` | Index for PT3H step of the IFS 0.1° oper run 2026-11-04 12 UTC | `application/x-ndjson` | `["index"]` |
+
+Both carry the step's valid time as `datetime` (e.g. `2026-11-04T15:00:00Z`)
+and `forecast:horizon` (`PT3H`). Asset keys are short identifiers for use in
+code (`item.assets["PT3H"]`); the title is what STAC Browser shows.
+
+**Variables present at only some steps** say so in their `comment`, because a
+Datacube cannot express this. In the surface files:
+
+- `mx2t3`/`mn2t3` (3-hour max/min) are at +0h to +144h, and `mx2t6`/`mn2t6`
+  at +150h to +360h.
+- `10fg3` is at +93h to +144h, and `10fg` at the other steps.
+- `z`, `sdor` and `slor` are at +0h only.
+
+**Trade-off:** STAC tools generally treat one Item as one moment in time,
+with its assets as bands or formats of it. A time search matches a whole run,
+and loaders such as `odc-stac` or `stackstac` won't build a time series from
+these assets. To get one step, pick the asset by key or by its `datetime`.
 
 ### Notes and decisions
 
 - **The file-name timestamp is the reference (run) time, not the valid
-  time.** `datetime` and `ecmwf:forecast_datetime` are reference time + step,
-  as in the Planetary Computer items (reference 2026-11-04T00, step 354h →
-  datetime 2026-11-18T18).
+  time.** Each asset's `datetime` is reference time + step, as in the
+  Planetary Computer items (reference 2026-11-04T00, step 354h → datetime
+  2026-11-18T18).
 - **The Projection values were checked against the files.** All messages
   are on one grid: regular_ll, 3600 × 1801, 0.1°, first longitude 180° (=
   −180°), sphere R = 6,371,229 m (`shapeOfTheEarth` 6). The transform
@@ -174,10 +202,10 @@ including the credit to the Planetary Computer collection.
   `application/json-seq` (RFC 7464) would need an RS character before each
   record.
 - **STAC Browser display quirks:** it re-sorts summary lists as text and
-  numbers them, so a run Collection's steps show as `1. 0h`, `2. 102h`,
-  `3. 105h`, … (the JSON is in numeric order). It also shows zero durations
-  (`PT0H`, `PT0S`) as "none", so step-0 horizons read "none". Both come from
-  `@radiantearth/stac-fields`; the JSON is correct.
+  numbers them (`1. 0h`, `2. 102h`, `3. 105h`, …), and shows zero durations
+  (`PT0H`, `PT0S`) as "none". Both come from `@radiantearth/stac-fields`;
+  the JSON is correct. Forecast steps are no longer summarised in lists, so
+  the first quirk no longer affects them.
 - **Units** are written UDUNITS-style (`m s**-1` → `m s-1`); `(0 - 1)` and
   `Numeric` become `1`.
 

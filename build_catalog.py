@@ -5,12 +5,14 @@ Walks the ECMWF open-data folder structure
 
     [ROOT]/[yyyymmdd]/[HH]z/ifs/0p1/oper/[yyyymmdd][HH]0000-[step]h-oper-fc-[levtype].grib2
 
-and writes one STAC Item per GRIB2 file, organised as
+and writes, for each run, one STAC Item per vertical domain (pl, sfc) holding
+a GRIB2 asset and an index asset for every forecast step, organised as
 
     collection.json                    root Collection: IFS 0.1° oper
     └── 20261104/collection.json       Level 0 Collection: forecast reference date
         └── 00z/collection.json        Level 1 Collection: forecast reference time
-            └── <file-id>.json         Level 2: one Item per GRIB2 file
+            ├── <run>-oper-fc-pl.json  Item: pressure levels, all steps of the run
+            └── <run>-oper-fc-sfc.json Item: surface fields, all steps of the run
 
 What is inside each GRIB2 file (parameters, levels) is read from the small
 .index file that ECMWF publishes next to it, which is also added to each Item
@@ -95,9 +97,12 @@ the most recent forecast runs online, so this catalog is regenerated from the
 live folder structure. See the [ECMWF open-data documentation]({ECMWF_DOCS_PAGE}).
 
 Organisation: Collections per forecast reference date → reference time (run)
-→ one Item per GRIB2 file. Each Item describes its horizontal grid with the Projection
-extension, its contents (variables, levels, time) with the Datacube extension,
-and its reference time and lead time with the Forecast extension.
+→ two Items per run, one for pressure-level fields (pl) and one for surface
+fields (sfc), each holding the run's GRIB2 file and index file for every
+forecast step as assets. Each Item describes its horizontal grid with the
+Projection extension and its contents (variables, levels, valid times) with
+the Datacube extension; the Forecast extension gives the run's reference time,
+and each asset its valid time and forecast horizon.
 
 Licence: [CC-BY-4.0]({CC_BY}), subject to the [ECMWF Terms of Use]({ECMWF_TERMS}).
 Data © ECMWF. DOI: [10.21957/open-data]({DOI}).
@@ -363,22 +368,27 @@ def main():
         cache_path.parent.mkdir(parents=True, exist_ok=True)
         cache_path.write_text(json.dumps(cache, indent=1, sort_keys=True))
 
-    # 4. Build the Items, grouped by run
+    # 4. Build the Items: one per run and vertical domain (pl / sfc), with a GRIB2
+    # asset and an index asset for every forecast step of that run.
     # Properties shared by every Item; also set on each Collection above them.
     common = {"ecmwf:stream": STREAM, "ecmwf:type": TYPE, "ecmwf:resolution": RESOLUTION_DEG,
               "metdx-demo:model": MODEL, "forecast:perturbed": False}
-    runs = {}  # (date, HH) -> (reference time, [items])
+    groups = {}  # (date, HH, levtype) -> [(folder, filename, match, index rows)]
     for (d, hh, folder, n, m), rows in zip(plan, indexes):
-        ref = dt.datetime.strptime(m["ref"], "%Y%m%d%H%M%S").replace(tzinfo=dt.timezone.utc)
+        groups.setdefault((d, hh, m["levtype"]), []).append((folder, n, m, rows))
+    runs = {}  # (date, HH) -> (reference time, [items])
+    for (d, hh, lt), files in sorted(groups.items()):
+        ref = dt.datetime.strptime(files[0][2]["ref"], "%Y%m%d%H%M%S").replace(
+            tzinfo=dt.timezone.utc)
         runs.setdefault((d, hh), (ref, []))[1].append(
-            make_item(folder, n, m, ref, rows, cache, common, local_ext))
+            make_run_item(d, hh, lt, ref, files, cache, common, local_ext))
 
     # 5. Collections: root -> reference date -> reference time (run) -> Items
     all_items = [it for _, items in runs.values() for it in items]
     root = make_collection(
         f"ecmwf-opendata-{MODEL}-{RESOL}-{STREAM}",
         f"ECMWF open data: IFS 0.1° {STREAM} ({STREAM_TITLE})",
-        ROOT_DESCRIPTION, all_items, common, local_ext, step_summary="range")
+        ROOT_DESCRIPTION, all_items, common, local_ext)
     add_reference_links(root)
     hrefs = [(root, out / "collection.json")]
     for d in sorted({d for d, _ in runs}):
@@ -389,24 +399,24 @@ def main():
             (f"IFS 0.1° {STREAM} forecast runs whose reference (base) date is {day}, "
              f"one collection per reference time (00/06/12/18 UTC)."),
             [it for _, (_, items) in day_runs for it in items],
-            {**common, "metdx-demo:reference_date": day}, local_ext, step_summary="range")
+            {**common, "metdx-demo:reference_date": day}, local_ext)
         add_license_links(date_col)
         root.add_child(date_col)
         hrefs.append((date_col, out / d / "collection.json"))
         for (_, hh), (ref, items) in day_runs:
             run_col = make_collection(
                 f"{d}-{hh}z", f"IFS 0.1° {STREAM} run {day} {hh} UTC",
-                (f"GRIB2 files of the IFS 0.1° {STREAM} forecast with reference time "
-                 f"{iso(ref)}: one Item per file and forecast step, separate files for "
-                 f"pressure-level (pl) and surface (sfc) fields."),
+                (f"The IFS 0.1° {STREAM} forecast with reference time {iso(ref)}, as two "
+                 f"Items: pressure-level fields (pl) and surface fields (sfc). Each Item "
+                 f"holds that run's GRIB2 file and index file for every forecast step."),
                 items,
                 {**common, "metdx-demo:reference_date": day,
                  "ecmwf:reference_datetime": iso(ref), "forecast:reference_datetime": iso(ref)},
-                local_ext, step_summary="list")
+                local_ext)
             add_license_links(run_col)
             date_col.add_child(run_col)
             hrefs.append((run_col, out / d / f"{hh}z" / "collection.json"))
-            for it in sorted(items, key=lambda i: (i.datetime, i.id)):
+            for it in sorted(items, key=lambda i: i.id):
                 run_col.add_item(it)
                 it.set_self_href(str(out / d / f"{hh}z" / f"{it.id}.json"))
 
@@ -420,41 +430,31 @@ def main():
     root.save(catalog_type=pystac.CatalogType.SELF_CONTAINED)
     write_local_extension(out.parent / LOCAL_EXT_PATH, local_ext)
     (out / "runs.txt").write_text(runs_listing)  # what this build covered; see --list-runs
-    print(f"Wrote {len(all_items)} Items in {len(runs)} run(s) to {out}/collection.json")
+    n_assets = sum(len(it.assets) for it in all_items)
+    print(f"Wrote {len(all_items)} Items ({n_assets} assets, {len(plan)} GRIB2 files) "
+          f"in {len(runs)} run(s) to {out}/collection.json")
 
 
-def make_collection(cid, title, description, items, fields, local_ext, step_summary="list"):
+def make_collection(cid, title, description, items, fields, local_ext):
     """A Collection whose extent and summaries come from the Items below it.
 
     `fields` are properties shared by all those Items; they are set as
-    top-level Collection fields and also appear in `summaries`.
-
-    step_summary: how `ecmwf:step` and `forecast:horizon` are summarised:
-      "list"  every step, in numeric order (run Collections), or
-      "range" {"minimum", "maximum"} (root and date Collections). STAC Browser
-              re-sorts summary lists as text (0h, 102h, 105h, ... 3h), so a range
-              reads better where the full list isn't needed.
+    top-level Collection fields and also appear in `summaries`. Forecast steps
+    are not summarised: they are assets (with datetime and forecast:horizon)
+    of each Item, and the Collection's temporal extent covers their valid times.
     """
-    times = [it.datetime for it in items]
-    steps = sorted({it.properties["ecmwf:step"] for it in items}, key=lambda s: int(s[:-1]))
-    horizons = [f"PT{s[:-1]}H" for s in steps]
-    if step_summary == "range":
-        step_values = {"minimum": steps[0], "maximum": steps[-1]}
-        horizon_values = {"minimum": horizons[0], "maximum": horizons[-1]}
-    else:
-        step_values, horizon_values = steps, horizons
+    starts = [it.common_metadata.start_datetime for it in items]
+    ends = [it.common_metadata.end_datetime for it in items]
     summaries = {k: [v] for k, v in fields.items() if k != "metdx-demo:reference_date"}
     summaries.update({
         "metdx-demo:levtype": sorted({it.properties["metdx-demo:levtype"] for it in items}),
-        "ecmwf:step": step_values,
-        "forecast:horizon": horizon_values,
         "forecast:reference_datetime": sorted({it.properties["forecast:reference_datetime"]
                                                for it in items}),
     })
     return pystac.Collection(
         id=cid, title=title, description=description,
         extent=pystac.Extent(pystac.SpatialExtent([[-180.0, -90.0, 180.0, 90.0]]),
-                             pystac.TemporalExtent([[min(times), max(times)]])),
+                             pystac.TemporalExtent([[min(starts), max(ends)]])),
         license="CC-BY-4.0",
         keywords=["ECMWF", "IFS", "open data", "forecast", "weather", "GRIB2"],
         providers=[pystac.Provider(
@@ -464,17 +464,7 @@ def make_collection(cid, title, description, items, fields, local_ext, step_summ
             url="https://www.ecmwf.int/")],
         summaries=pystac.Summaries(summaries, maxcount=10000),  # pystac drops lists > 25 by default
         stac_extensions=[EXT["forecast"], local_ext],
-        extra_fields={
-            **fields,
-            "item_assets": {
-                "data": {
-                    "type": GRIB2_MEDIA_TYPE, "roles": ["data"], "title": "GRIB2 data file",
-                    "description": "The forecast fields of one model run and step, as GRIB2."},
-                "index": {
-                    "type": INDEX_MEDIA_TYPE, "roles": ["index"], "title": "Index file",
-                    "description": INDEX_ASSET_DESCRIPTION},
-            },
-        },
+        extra_fields=dict(fields),
         catalog_type=pystac.CatalogType.SELF_CONTAINED,
     )
 
@@ -495,24 +485,59 @@ def add_reference_links(obj):
                              "Computer STAC catalogue"))
 
 
-def make_item(folder, name, m, ref, rows, cache, common, local_ext):
-    step, lt = int(m["step"]), m["levtype"]
-    valid = ref + dt.timedelta(hours=step)
-    item_id = name[:-len(".grib2")]
+def steps_note(present, all_steps):
+    """Say at which steps a variable exists, if not at every step of the run.
+
+    Consecutive steps of the run are grouped, e.g. "+0h to +90h, +150h to +360h".
+    """
+    if present == all_steps:
+        return None
+    idx = [all_steps.index(x) for x in present]
+    spans, first = [], 0
+    for i in range(1, len(idx) + 1):
+        if i == len(idx) or idx[i] != idx[i - 1] + 1:
+            a, b = present[first], present[i - 1]
+            spans.append(f"+{a}h" if a == b else f"+{a}h to +{b}h")
+            first = i
+    where = ", ".join(spans)
+    return (f"Only at step {where}." if len(present) == 1 else
+            f"Only at steps {where} ({len(present)} of {len(all_steps)} steps).")
+
+
+def make_run_item(d, hh, lt, ref, files, cache, common, local_ext):
+    """One Item for one run and vertical domain, with assets for every step.
+
+    files: [(folder, filename, match, index rows)] for the GRIB2 files of this
+    run and levtype.
+    """
+    files = sorted(files, key=lambda f: int(f[2]["step"]))
+    steps = [int(f[2]["step"]) for f in files]
+    valid = {s: ref + dt.timedelta(hours=s) for s in steps}
+    day = f"{d[:4]}-{d[4:6]}-{d[6:]}"
+    run_label = f"IFS 0.1° {STREAM} run {day} {hh} UTC"
+    item_id = f"{files[0][2]['ref']}-{STREAM}-{TYPE}-{lt}"
+    all_rows = [r for f in files for r in f[3]]
 
     # Grid from the sampled messages of this file type (all must agree)
-    grids = {json.dumps(cache[cache_key(lt, r)]["grid"], sort_keys=True) for r in rows}
+    grids = {json.dumps(cache[cache_key(lt, r)]["grid"], sort_keys=True) for r in all_rows}
     if len(grids) != 1:
-        raise SystemExit(f"{name}: messages on {len(grids)} different grids")
+        raise SystemExit(f"{item_id}: messages on {len(grids)} different grids")
     proj, projjson, lon_ext, lat_ext, dx, dy = grid_projection(json.loads(grids.pop()))
 
-    # Contents from the index: variables and their levels
-    levels = {}
-    for r in rows:
-        levels.setdefault((r.get("levtype"), r["param"]), set()).add(r.get("levelist"))
+    # Contents from the indexes: variables, their levels, and the steps they occur at
+    levels, var_steps = {}, {}
+    for f in files:
+        step = int(f[2]["step"])
+        for r in f[3]:
+            key = (r.get("levtype"), r["param"])
+            levels.setdefault(key, set()).add(r.get("levelist"))
+            var_steps.setdefault(key, set()).add(step)
+    times = [iso(valid[s]) for s in steps]
     dims = {
-        "time": {"type": "temporal", "extent": [iso(valid), iso(valid)], "values": [iso(valid)],
-                 "description": "Valid time (reference time + forecast step)."},
+        "time": {"type": "temporal", "extent": [times[0], times[-1]], "values": times,
+                 "description": (f"Valid time (reference time {iso(ref)} + forecast step): "
+                                 f"{len(steps)} steps from +{steps[0]}h to +{steps[-1]}h. "
+                                 "Each step is a separate GRIB2 asset.")},
         "latitude": {"type": "spatial", "axis": "y", "extent": lat_ext, "step": dy,
                      "reference_system": projjson,
                      "description": f"Latitude, {dy}° spacing; rows run north to south."},
@@ -542,29 +567,32 @@ def make_item(folder, name, m, ref, rows, cache, common, local_ext):
             lvl = f" {p['level']}" if p["typeOfLevel"] == "heightAboveGround" else ""
             unit = " m" if lvl else ""
             note = f"Level type: {p['typeOfLevel']}{lvl}{unit}."
+        only = steps_note(sorted(var_steps[(levtype, param)]), steps)
+        note = " ".join(x for x in [note, only] if x) or None
         variables[param] = describe_variable(meta, vdims, note)
 
     props = {
-        "title": (f"IFS 0.1° {STREAM} {TYPE}, {LEVTYPE_TITLE.get(lt, lt)}, "
-                  f"{iso(ref)[:13].replace('T', ' ')} UTC +{step}h"),
-        "description": (f"{STREAM_TITLE}. {len(variables)} parameters "
-                        f"({LEVTYPE_TITLE.get(lt, lt)}) in {len(rows)} GRIB2 messages, "
-                        f"reference time {iso(ref)}, step {step} h, valid at {iso(valid)}."),
+        "title": f"IFS 0.1° {STREAM} {TYPE}, {LEVTYPE_TITLE.get(lt, lt)}, run {day} {hh} UTC",
+        "description": (f"{STREAM_TITLE}, {LEVTYPE_TITLE.get(lt, lt)}: {len(variables)} "
+                        f"parameters at {len(steps)} forecast steps from +{steps[0]}h to "
+                        f"+{steps[-1]}h, reference time {iso(ref)}. Each step has a GRIB2 "
+                        f"asset (PT<step>H) and its index (PT<step>H-index); both carry the "
+                        f"step's valid time (datetime) and forecast:horizon. "
+                        f"{INDEX_ASSET_DESCRIPTION} Single fields can be downloaded with HTTP "
+                        f"range requests using those byte ranges."),
+        "start_datetime": times[0],
+        "end_datetime": times[-1],
         **common,
         "ecmwf:reference_datetime": iso(ref),
-        "ecmwf:forecast_datetime": iso(valid),
-        "ecmwf:step": f"{step}h",
         "metdx-demo:levtype": lt,
         "forecast:reference_datetime": iso(ref),
-        "forecast:horizon": f"PT{step}H",
-        "forecast:perturbed": False,
         **proj,
         "cube:dimensions": dims,
         "cube:variables": dict(sorted(variables.items())),
     }
     # Every pressure-level field is instantaneous; surface files mix instantaneous,
     # accumulated and max/min fields, so no single forecast:duration applies.
-    if all(cache[cache_key(lt, r)]["param"]["stepType"] == "instant" for r in rows):
+    if all(cache[cache_key(lt, r)]["param"]["stepType"] == "instant" for r in all_rows):
         props["forecast:duration"] = "PT0S"
 
     item = pystac.Item(
@@ -572,19 +600,25 @@ def make_item(folder, name, m, ref, rows, cache, common, local_ext):
         geometry={"type": "Polygon", "coordinates": [[[-180, -90], [180, -90], [180, 90],
                                                       [-180, 90], [-180, -90]]]},
         bbox=[-180.0, -90.0, 180.0, 90.0],
-        datetime=valid,
+        datetime=None,
+        start_datetime=valid[steps[0]],
+        end_datetime=valid[steps[-1]],
         properties=props,
         stac_extensions=[EXT["proj"], EXT["cube"], EXT["forecast"], local_ext],
     )
-    item.add_asset("data", pystac.Asset(
-        href=f"{folder}/{name}", media_type=GRIB2_MEDIA_TYPE, roles=["data"],
-        title="GRIB2 data file",
-        description=(f"{len(rows)} GRIB2 messages, {sum(r['_length'] for r in rows):,} bytes. "
-                     "Single fields can be downloaded with HTTP range requests using the "
-                     "byte offsets in the index asset.")))
-    item.add_asset("index", pystac.Asset(
-        href=f"{folder}/{name[:-len('.grib2')]}.index", media_type=INDEX_MEDIA_TYPE,
-        roles=["index"], title="Index file", description=INDEX_ASSET_DESCRIPTION))
+    for folder, name, m, rows in files:
+        step = int(m["step"])
+        horizon = f"PT{step}H"
+        per_step = {"datetime": iso(valid[step]), "forecast:horizon": horizon}
+        item.add_asset(horizon, pystac.Asset(
+            href=f"{folder}/{name}", media_type=GRIB2_MEDIA_TYPE, roles=["data"],
+            title=f"{horizon} step of the {run_label}",
+            description=f"{len(rows)} GRIB2 messages, {sum(r['_length'] for r in rows):,} bytes.",
+            extra_fields=dict(per_step)))
+        item.add_asset(f"{horizon}-index", pystac.Asset(
+            href=f"{folder}/{name[:-len('.grib2')]}.index", media_type=INDEX_MEDIA_TYPE,
+            roles=["index"], title=f"Index for {horizon} step of the {run_label}",
+            extra_fields=dict(per_step)))
     item.add_link(pystac.Link("license", CC_BY, "text/html", "CC-BY-4.0"))
     item.add_link(pystac.Link("describedby", ECMWF_OPEN_DATA_PAGE, "text/html", "ECMWF open data"))
     return item
