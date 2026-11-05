@@ -1,5 +1,21 @@
 # Comparing sizes of STAC Items and ECMWF index files
 
+## In short
+
+Now that each run has two STAC Items, the Items are a small fraction of the
+size of the ECMWF index files for the same run:
+
+- **Pressure levels (00z/12z run):** one STAC Item of about 86 KB, against 85
+  index files totalling about 2.6 MB.
+- **Surface (00z/12z run):** one STAC Item of about 105 KB, against about
+  0.9 MB of index files.
+- **Whole catalog:** about 1.9 MB of STAC Items, against roughly 35 MB of
+  index files.
+
+The two do different jobs. The index files give byte offsets so you can fetch
+a single field from a GRIB2 file. The STAC Items describe each run's time,
+grid, variables and files so you can find the data.
+
 ## Update, 2026-11-05: one Item per run and vertical domain
 
 The catalog now has **two Items per run** (pressure levels and surface), each
@@ -18,7 +34,7 @@ A run's two Items are now much smaller than its index files. A 00z/12z run's
 85 `pl` index files total about 2.6 MB, against an 86 KB Item. The variable
 descriptions, 64% of the old surface Items, are now written once per run.
 Most of a run Item is its assets: two per step, each with a link, title,
-`datetime` and `forecast:horizon`.
+`datetime` and `ecmwf:step`.
 
 The rest of this note is the original comparison, for the old layout.
 
