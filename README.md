@@ -217,6 +217,11 @@ Browser and deploys them to GitHub Pages:
 - Catalog: <https://6a6d74.github.io/ecmwf-stac/stac/collection.json>
 - Browser: <https://6a6d74.github.io/ecmwf-stac/browser/>
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/ecmwf-stac-architecture-workflow-dark.png">
+  <img src="docs/ecmwf-stac-architecture-workflow.png" alt="The publish workflow: in the GitHub repository 6a6d74/ecmwf-stac, publish.yml has two jobs. In the build job, a schedule (hourly at :23, or manual) triggers a change check, which compares the runs online at ECMWF with the build-state.txt deployed on GitHub Pages; only if they differ does build_catalog.py read the listing and .index files from ECMWF open data and build stac/, which STAC Browser packages into site/, with GRIB metadata and npm downloads from the Actions cache. The deploy job's deploy-pages step publishes site/ to GitHub Pages through the github-pages environment. Users reach GitHub Pages over HTTPS and download GRIB2 files from ECMWF via each asset's link.">
+</picture>
+
 **When it runs:** hourly at :23 and on manual dispatch (Actions → "Build and
 publish STAC catalog" → Run workflow; tick *force* to rebuild regardless).
 Each run first lists the runs online at ECMWF (`build_catalog.py
